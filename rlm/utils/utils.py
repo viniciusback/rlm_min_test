@@ -25,13 +25,13 @@ def find_final_answer(text: str) -> Optional[Tuple[str, str]]:
     Returns None if neither pattern is found.
     """
     # Check for FINAL_VAR pattern first - must be at start of line
-    final_var_pattern = r'^\s*FINAL_VAR\((.*?)\)'
+    final_var_pattern = r'^\s*FINAL_VAR\(([\s\S]*)\)\s*$'
     match = re.search(final_var_pattern, text, re.MULTILINE | re.DOTALL)
     if match:
         return ('FINAL_VAR', match.group(1).strip())
     
     # Check for FINAL pattern - must be at start of line
-    final_pattern = r'^\s*FINAL\((.*?)\)'
+    final_pattern = r'^\s*FINAL\(([\s\S]*)\)\s*$'
     match = re.search(final_pattern, text, re.MULTILINE | re.DOTALL)
     if match:
         return ('FINAL', match.group(1).strip())
