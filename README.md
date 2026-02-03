@@ -1,4 +1,10 @@
-# Recursive Language Models (minimal version) 
+# Recursive Language Models (minimal version) - Interface Streamlit
+
+Reprodução do RLM Minimal https://github.com/alexzhang13/rlm-minimal com ajustes realizados para logs visuais e no console utilizando uma simples página streamlit
+
+Para rodar, instale os requirements.txt e rode streamlit run app.py
+
+## Recursive Language Models (minimal version)
 
 [Link to the official RLM codebase](https://github.com/alexzhang13/rlm)
 
@@ -15,18 +21,22 @@ I've provided a basic, minimal implementation of a recursive language model (RLM
 In this stripped implementation, we exclude a lot of the logging, cost tracking, prompting, and REPL execution details of the experiments run in the blogpost. It's relatively easy to modify and build on top of this code to reproduce those results, but it's currently harder to go from my full codebase to supporting any new functionality.
 
 ## Basic Example
+
 We have all the basic dependencies in `requirements.txt`, although none are really necessary if you change your implementation (`openai` for LM API calls, `dotenv` for .env loading, and `rich` for logging).
 
 In `main.py`, we have a basic needle-in-the-haystack (NIAH) example that embeds a random number inside ~1M lines of random words, and asks the model to go find it. It's a silly Hello World type example to emphasize that `RLM.completion()` calls are meant to replace `LM.completion()` calls.
 
 ## Code Structure
-In the `rlm/` folder, the two main files are `rlm_repl.py` and `repl.py`. 
-* `rlm_repl.py` offers a basic implementation of an RLM using a REPL environment in the `RLM_REPL` class. The `completion()` function gets called when we query an RLM.
-* `repl.py` is a simple `exec`-based implementation of a REPL environment that adds an LM sub-call function. To make the system truly recursive beyond `depth=1`, you can replace the `Sub_RLM` class with `RLM_REPL` (they all inherit from the `RLM` base class).
+
+In the `rlm/` folder, the two main files are `rlm_repl.py` and `repl.py`.
+
+- `rlm_repl.py` offers a basic implementation of an RLM using a REPL environment in the `RLM_REPL` class. The `completion()` function gets called when we query an RLM.
+- `repl.py` is a simple `exec`-based implementation of a REPL environment that adds an LM sub-call function. To make the system truly recursive beyond `depth=1`, you can replace the `Sub_RLM` class with `RLM_REPL` (they all inherit from the `RLM` base class).
 
 The functionality for parsing and handling base LLM clients are all in `rlm/utils/`. We also add example prompts here.
 
 > The `rlm/logger/` folder mainly contains optional logging utilities used by the RLM REPL implementation. If you want to enable colorful or enhanced logging outputs, you may need to install the [`rich`](https://github.com/Textualize/rich) library as a dependency.
+
 ```
 pip install rich
 ```
