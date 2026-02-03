@@ -1,0 +1,6 @@
+openai
+dotenv
+rich
+pypdf
+streamlit
+python-docx
